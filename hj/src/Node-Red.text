@@ -1,0 +1,81 @@
+
+//23.07.11 : 웹페이지에서 (A, B, C, D) 구역 선택시, 선택된 구역의 데이터를 보냄
+
+[
+    {
+        "id": "d1dfe63abb9ce172",
+        "type": "http in",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "url": "/area",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 340,
+        "y": 120,
+        "wires": [
+            [
+                "87ea74d03f7bc794",
+                "c429eb6eb031cc55",
+                "d6919a69e52bb449"
+            ]
+        ]
+    },
+    {
+        "id": "87ea74d03f7bc794",
+        "type": "http response",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 670,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c429eb6eb031cc55",
+        "type": "serial out",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "serial": "0a8cbb7e02612ae6",
+        "x": 670,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d6919a69e52bb449",
+        "type": "debug",
+        "z": "e3eb26be89370e72",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0a8cbb7e02612ae6",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "0",
+        "bin": "false",
+        "out": "interbyte",
+        "addchar": "",
+        "responsetimeout": "10000"
+    }
+]
