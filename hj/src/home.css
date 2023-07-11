@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.Home {
+  display: flex;
+  flex-direction: column;
+  background-color: blanchedalmond;
+  height: 99vh;
+}
+.Gauge {
+  width: 450px;
+  height: 50px;
+  background-color: rgb(62, 62, 62);
+  color: white;
+  font-size: 20px;
+  margin-bottom: 50px;
+  border: none;
+}
+.A {
+  width: 200px;
+  height: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+.B {
+  width: 200px;
+  height: 50px;
+  margin-bottom: 50px;
+}
+.C {
+  width: 200px;
+  height: 50px;
+  margin-right: 50px;
+}
+.D {
+  width: 200px;
+  height: 50px;
+}
