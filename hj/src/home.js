@@ -19,7 +19,7 @@ function Home() {
   return (
     <div className="Home">
       <a
-        href="http://192.168.0.101:1880/ui"
+        href="http://192.168.0.80:1880/ui"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -43,11 +43,11 @@ function Home() {
           </button>
         </div>
         <div>
-          <button className="Catch" onClick={() => handleAreaClick("catch")}>
-            Catch
+          <button className="Catch" onClick={() => handleAreaClick("E")}>
+            CLOSE
           </button>
-          <button className="Put" onClick={() => handleAreaClick("put")}>
-            Put
+          <button className="Put" onClick={() => handleAreaClick("F")}>
+            OPEN
           </button>
         </div>
       </div>
