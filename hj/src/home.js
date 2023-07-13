@@ -19,38 +19,39 @@ function Home() {
   return (
     <div className="Home">
       <a
-        href="http://192.168.0.101:1880/ui"
+        href="http://192.168.0.80:1880/ui"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <button className="Gauge">실시간 각도 Gauge 대시보드</button>{" "}
+        <button className="Gauge">각도 Gauge 대시보드</button>{" "}
       </a>
       <div className="locationButton">
-        <div>
-          <button className="A" onClick={() => handleAreaClick("A")}>
-            A 구역
-          </button>
-          <button className="B" onClick={() => handleAreaClick("B")}>
-            B 구역
-          </button>
-        </div>
-        <div>
-          <button className="C" onClick={() => handleAreaClick("C")}>
-            C 구역
-          </button>
-          <button className="D" onClick={() => handleAreaClick("D")}>
-            D 구역
-          </button>
-        </div>
-        <div>
-          <button className="Catch" onClick={() => handleAreaClick("catch")}>
-            Catch
-          </button>
-          <button className="Put" onClick={() => handleAreaClick("put")}>
-            Put
-          </button>
-        </div>
+        <button className="A" onClick={() => handleAreaClick("A")}>
+          A 구역
+        </button>
+        <button className="B" onClick={() => handleAreaClick("B")}>
+          B 구역
+        </button>
+        <button className="C" onClick={() => handleAreaClick("C")}>
+          C 구역
+        </button>
+        <button className="D" onClick={() => handleAreaClick("D")}>
+          D 구역
+        </button>
       </div>
+      <div>
+        <button className="CLOSE" onClick={() => handleAreaClick("E")}>
+          CLOSE
+        </button>
+        <button className="OPEN" onClick={() => handleAreaClick("F")}>
+          OPEN
+        </button>
+      </div>
+
+      <img
+        className="robotImage"
+        src="https://cdn.pixabay.com/photo/2015/05/13/03/09/robots-764951_1280.png"
+      />
     </div>
   );
 }
