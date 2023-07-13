@@ -1895,7 +1895,7 @@
         "type": "debug",
         "z": "6fed0f4af241a2bf",
         "name": "debug 24",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1931,6 +1931,70 @@
                 "098c8c443044d759"
             ]
         ]
+    },
+    {
+        "id": "222af6230af21bc2",
+        "type": "inject",
+        "z": "6fed0f4af241a2bf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 390,
+        "y": 2720,
+        "wires": [
+            [
+                "1eb913791283cda0"
+            ]
+        ]
+    },
+    {
+        "id": "1eb913791283cda0",
+        "type": "function",
+        "z": "6fed0f4af241a2bf",
+        "name": "function 13",
+        "func": "var data =new Date();\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 2720,
+        "wires": [
+            [
+                "9ba76bb1ec643dd5"
+            ]
+        ]
+    },
+    {
+        "id": "9ba76bb1ec643dd5",
+        "type": "debug",
+        "z": "6fed0f4af241a2bf",
+        "name": "debug 25",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 2720,
+        "wires": []
     },
     {
         "id": "9947795ceb601ab5",
@@ -2020,7 +2084,7 @@
         "id": "f4fd17714406f3ed",
         "type": "serial-port",
         "serialport": "/dev/ttyUSB0",
-        "serialbaud": "115200",
+        "serialbaud": "9600",
         "databits": "8",
         "parity": "none",
         "stopbits": "1",

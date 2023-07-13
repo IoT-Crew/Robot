@@ -1,0 +1,744 @@
+[
+    {
+        "id": "e3eb26be89370e72",
+        "type": "tab",
+        "label": "플로우 robot",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a690dca94c587273",
+        "type": "http in",
+        "z": "e3eb26be89370e72",
+        "name": "홈페이지",
+        "url": "/home",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 240,
+        "wires": [
+            [
+                "c91cf93b416106d5"
+            ]
+        ]
+    },
+    {
+        "id": "7829ec65082d6276",
+        "type": "http response",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 650,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c91cf93b416106d5",
+        "type": "template",
+        "z": "e3eb26be89370e72",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"ko\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Document</title>\n</head>\n<body>\n  <div>로봇 팔 각도 살펴보기</div>\n  return msg;\n</body>\n</html>",
+        "output": "str",
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "7829ec65082d6276"
+            ]
+        ]
+    },
+    {
+        "id": "f7f7a63f3329161a",
+        "type": "serial in",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "serial": "0a8cbb7e02612ae6",
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "d9e9109400f59d74"
+            ]
+        ]
+    },
+    {
+        "id": "6f91fd03e571d50a",
+        "type": "function",
+        "z": "e3eb26be89370e72",
+        "name": "Servo_Base",
+        "func": "// @ts-nocheck\n// @ts-ignore\nvar sensorData = msg.payload;\n\nif (sensorData && sensorData.data && Array.isArray(sensorData.data)) {\n\n    // 대시보드에서 Gauge에 표시할 값을 생성\n    var gaugeData = {label: \"Servo \" + sensorData.data[0].servo, value: sensorData.data[0].angle };\n\n    // Guage에 표시할 값을 msg.gaugeData에 할당\n    msg.payload = gaugeData;\n    // return gaugeData;\n    return msg\n} else {\n    return null; // 유효한 데이터가 아닌 경우 메시지를 건너뛴다.\n    // return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 560,
+        "wires": [
+            [
+                "2f155601682a91b3",
+                "cb522ed5e1f655a3",
+                "1f5c6d1d16def263"
+            ]
+        ]
+    },
+    {
+        "id": "48128b0448c3637b",
+        "type": "ui_gauge",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "group": "2c7cfb23fe2fe7c4",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Angle",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "180",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "60",
+        "seg2": "120",
+        "diff": false,
+        "className": "",
+        "x": 1110,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "d1dfe63abb9ce172",
+        "type": "http in",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "url": "/area",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "87ea74d03f7bc794",
+                "d6919a69e52bb449",
+                "c429eb6eb031cc55"
+            ]
+        ]
+    },
+    {
+        "id": "87ea74d03f7bc794",
+        "type": "http response",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d6919a69e52bb449",
+        "type": "debug",
+        "z": "e3eb26be89370e72",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2f155601682a91b3",
+        "type": "ui_text",
+        "z": "e3eb26be89370e72",
+        "group": "2c7cfb23fe2fe7c4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "방향 (Base servo)",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "dd544a791ed13691",
+        "type": "inject",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "A",
+        "payloadType": "str",
+        "x": 230,
+        "y": 60,
+        "wires": [
+            [
+                "d6919a69e52bb449",
+                "c429eb6eb031cc55"
+            ]
+        ]
+    },
+    {
+        "id": "c429eb6eb031cc55",
+        "type": "serial out",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "serial": "0a8cbb7e02612ae6",
+        "x": 550,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a96ad1fc8373012c",
+        "type": "function",
+        "z": "e3eb26be89370e72",
+        "name": "Servo_Left",
+        "func": "// @ts-nocheck\n// @ts-ignore\nvar sensorData = msg.payload;\n\nif (sensorData && sensorData.data && Array.isArray(sensorData.data)) {\n\n    // 대시보드에서 Gauge에 표시할 값을 생성\n    var gaugeData = { label: \"Servo \" + sensorData.data[1].servo, value: sensorData.data[1].angle };\n\n    // Guage에 표시할 값을 msg.gaugeData에 할당\n    msg.payload = gaugeData;\n    // return gaugeData;\n    return msg\n} else {\n    return null; // 유효한 데이터가 아닌 경우 메시지를 건너뛴다.\n    // return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "cada0f1653062004",
+                "97842afd5dc0978f",
+                "7a41977ab8f0f22a"
+            ]
+        ]
+    },
+    {
+        "id": "0f8a1cf817f8ca6e",
+        "type": "ui_gauge",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "group": "3d40470e05646f94",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Angle",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "180",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "60",
+        "seg2": "120",
+        "diff": false,
+        "className": "",
+        "x": 1090,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "cada0f1653062004",
+        "type": "ui_text",
+        "z": "e3eb26be89370e72",
+        "group": "3d40470e05646f94",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "높이 (Left servo)",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 900,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "d7acf2e9d7a5f87a",
+        "type": "function",
+        "z": "e3eb26be89370e72",
+        "name": "Servo_Right",
+        "func": "// @ts-nocheck\n// @ts-ignore\nvar sensorData = msg.payload;\n\nif (sensorData && sensorData.data && Array.isArray(sensorData.data)) {\n\n    // 대시보드에서 Gauge에 표시할 값을 생성\n    var gaugeData = { label: \"Servo \" + sensorData.data[2].servo, value: sensorData.data[2].angle };\n\n    // Guage에 표시할 값을 msg.gaugeData에 할당\n    msg.payload = gaugeData;\n    // return gaugeData;\n    return msg\n} else {\n    return null; // 유효한 데이터가 아닌 경우 메시지를 건너뛴다.\n    // return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 980,
+        "wires": [
+            [
+                "1ccdbe381fc24809",
+                "59b76ecb5da5b951"
+            ]
+        ]
+    },
+    {
+        "id": "9266fcf5b6592fd3",
+        "type": "ui_gauge",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "group": "ea67888058de0edd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Angle",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "180",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "60",
+        "seg2": "120",
+        "diff": false,
+        "className": "",
+        "x": 1090,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "1ccdbe381fc24809",
+        "type": "ui_text",
+        "z": "e3eb26be89370e72",
+        "group": "ea67888058de0edd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "팔 (Right servo)",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 900,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "cb522ed5e1f655a3",
+        "type": "debug",
+        "z": "e3eb26be89370e72",
+        "name": "debug 31",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "c6c928e37a3a5f21",
+        "type": "inject",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"data\":[{\"servo\":0,\"angle\":90},{\"servo\":1,\"angle\":120},{\"servo\":2,\"angle\":90},{\"servo\":3,\"angle\":120}]}",
+        "payloadType": "json",
+        "x": 230,
+        "y": 380,
+        "wires": [
+            [
+                "f68bec5d0e7f3977"
+            ]
+        ]
+    },
+    {
+        "id": "f68bec5d0e7f3977",
+        "type": "http request",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.88:3000/sensor",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [
+                "3051ecbbed861f3a",
+                "d7b11216ede43fbe"
+            ]
+        ]
+    },
+    {
+        "id": "3051ecbbed861f3a",
+        "type": "debug",
+        "z": "e3eb26be89370e72",
+        "name": "debug 32",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6f36afc7c5dfb7fe",
+        "type": "function",
+        "z": "e3eb26be89370e72",
+        "name": "Servo_Gripper",
+        "func": "// @ts-nocheck\n// @ts-ignore\nvar sensorData = msg.payload;\n\nif (sensorData && sensorData.data && Array.isArray(sensorData.data)) {\n\n    // 대시보드에서 Gauge에 표시할 값을 생성\n    var gaugeData = { label: \"Servo \" + sensorData.data[3].servo, value: sensorData.data[3].angle };\n\n    // Guage에 표시할 값을 msg.gaugeData에 할당\n    msg.payload = gaugeData;\n    // return gaugeData;\n    return msg\n} else {\n    return null; // 유효한 데이터가 아닌 경우 메시지를 건너뛴다.\n    // return msg\n\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1120,
+        "wires": [
+            [
+                "4ff4fb3c85f18324",
+                "4c12063a4bfd443b"
+            ]
+        ]
+    },
+    {
+        "id": "2d3f46cc40248054",
+        "type": "ui_gauge",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "group": "e7d00130d8fb4c0c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Angle",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "180",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "60",
+        "seg2": "120",
+        "diff": false,
+        "className": "",
+        "x": 1090,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "d9e9109400f59d74",
+        "type": "function",
+        "z": "e3eb26be89370e72",
+        "name": "msg_payload",
+        "func": "var sensorData = msg.payload;\n\nif (typeof sensorData === 'string') {\n    try {\n        sensorData = JSON.parse(sensorData);\n        msg.payload = sensorData;\n        return msg\n    } catch (error) {\n        // JSON.parse()에서 오류 발생 시, 유효하지 않은 데이터로 처리\n        sensorData = null;\n        msg.payload = sensorData;\n        return msg\n    }\n}\n\n// return sensorData;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 560,
+        "wires": [
+            [
+                "a96ad1fc8373012c",
+                "d7acf2e9d7a5f87a",
+                "6f36afc7c5dfb7fe",
+                "6f91fd03e571d50a"
+            ]
+        ]
+    },
+    {
+        "id": "1f5c6d1d16def263",
+        "type": "change",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 680,
+        "wires": [
+            [
+                "48128b0448c3637b"
+            ]
+        ]
+    },
+    {
+        "id": "97842afd5dc0978f",
+        "type": "change",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 900,
+        "wires": [
+            [
+                "0f8a1cf817f8ca6e"
+            ]
+        ]
+    },
+    {
+        "id": "59b76ecb5da5b951",
+        "type": "change",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 1040,
+        "wires": [
+            [
+                "9266fcf5b6592fd3"
+            ]
+        ]
+    },
+    {
+        "id": "4ff4fb3c85f18324",
+        "type": "change",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 1180,
+        "wires": [
+            [
+                "2d3f46cc40248054"
+            ]
+        ]
+    },
+    {
+        "id": "7a41977ab8f0f22a",
+        "type": "debug",
+        "z": "e3eb26be89370e72",
+        "name": "debug 33",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "4c12063a4bfd443b",
+        "type": "ui_text",
+        "z": "e3eb26be89370e72",
+        "group": "e7d00130d8fb4c0c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "집게 (Gripper servo)",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "d7b11216ede43fbe",
+        "type": "http response",
+        "z": "e3eb26be89370e72",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "0a8cbb7e02612ae6",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "2c7cfb23fe2fe7c4",
+        "type": "ui_group",
+        "name": "로봇 팔의 각도",
+        "tab": "83e019301eae55cc",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3d40470e05646f94",
+        "type": "ui_group",
+        "name": "로봇 팔의 각도",
+        "tab": "83e019301eae55cc",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ea67888058de0edd",
+        "type": "ui_group",
+        "name": "로봇 팔의 각도",
+        "tab": "83e019301eae55cc",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e7d00130d8fb4c0c",
+        "type": "ui_group",
+        "name": "로봇 팔의 각도",
+        "tab": "83e019301eae55cc",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "83e019301eae55cc",
+        "type": "ui_tab",
+        "name": "Robot Arm",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
