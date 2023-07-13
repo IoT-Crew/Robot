@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 //데이터 모델링
-const { Schema } = mongoose;
-const sensorSchema = new Schema({
-  type: {
-    type: String,
-    required: true,
+const servoSchema = new mongoose.Schema({
+  servo: { 
+    type: Number, 
+    required: true 
   },
-  value: {
-    type: Number,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  angle: { 
+    type: Number, 
+    required: true 
+  }
+});
+
+const sensorSchema = new mongoose.Schema({
+  data: { type: [servoSchema], required: true }
 });
 
 module.exports = mongoose.model('Sensor', sensorSchema);

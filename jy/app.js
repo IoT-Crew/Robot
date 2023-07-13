@@ -7,7 +7,6 @@ const Sensor = require('../jy/schemas/datatype');
 
 //몽고DB 연결
 const connect = require('../jy/schemas/connectDB');
-const mongoose = require('mongoose');
  
 const port = process.env.PORT || 3000;
 const path = require('path'); 
@@ -36,11 +35,8 @@ app.get('/sensor', async(req, res)=>{
 app.post('/sensor', async(req, res)=>{//create cafe
     // const sensor = new Sensor(req.body);
     console.log(req.body);
-    const {type, value} = req.body;
-    const sensor = new Sensor({
-        type : type,
-        value: value,
-    })
+    const {data} = req.body;
+    const sensor = new Sensor({ data })
     await sensor.save(); // document 생성 및 저장
     // res.redirect('/'); // /cafe주소로 리다이렉트
 })
