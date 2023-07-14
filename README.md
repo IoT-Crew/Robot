@@ -1,6 +1,6 @@
 # IoT 로봇팔 프로젝트
 
-![title_image](assets/robot.png)
+![title_image](assets/robot.jpeg)
 ---
 ### 📌Duration <br>
 2023.07.10 ~ 14
@@ -31,6 +31,16 @@
 ### 📌기술 스택
 ![기술스택](assets/기술스택.png)
 ![시스템 아키텍처](assets/시스템%20설계.png)
+
+### 시연 이미지
+클라이언트 화면
+![robot](assets/robot.png) <br>
+node-red flow 화면
+![flow](assets/flow.png) <br>
+node-red dashboard 화면
+![dashboard](assets/dashboard.png) <br>
+실시간 데이터 mongo db 저장
+![mongo](assets/mongo.png) <br>
 
 
 ### 📌실행 환경 <br>
